@@ -45,6 +45,7 @@ variable "subnet_information" {
   default = {
     "subnet_data"  = ["172.17.1.0/24"]
     "subnet_cache" = ["172.17.2.0/24"]
+    "subnet_db"    = ["172.17.3.0/24"]
   }
 }
 
