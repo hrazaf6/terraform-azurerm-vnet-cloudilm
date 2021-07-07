@@ -1,0 +1,31 @@
+trigger:
+- main
+
+stages:
+- stage: Terraform_init_plan
+
+  pool:
+    vmImage: ubuntu-latest
+
+  jobs:
+ 
+  - job: terraform_init_plan
+
+    steps:
+    
+    - task: TerraformInstaller@0
+      displayName: Install TF 0.14.8
+      inputs:
+        terraformVersion: '0.14.8'
+
+    - task: TerraformTaskV1@0
+      displayName: $ terraform init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+        backendServiceArm: 'FAB-SPN'
+        backendAzureRmResourceGroupName: 'amdocs_tfstate'
+        backendAzureRmStorageAccountName: 'amdocstfstate'
+        backendAzureRmContainerName: 'amdocs'
+        backendAzureRmKey: 'test.state'
